@@ -1,0 +1,42 @@
+{
+  "include": [
+    "src/**/*",
+    "__tests__/**/*",
+    "include/**/*"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "es2022"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
+    "module": "es2022",
+    "target": "es2022",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "importsNotUsedAsValues": "remove",
+    "rootDir": ".",
+    "outDir": "out/",
+    "sourceMap": true,
+    "allowJs": true
+  },
+  "ts-node": {
+    "esm": true
+  }
+}
