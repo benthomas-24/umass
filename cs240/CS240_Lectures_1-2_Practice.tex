@@ -1,0 +1,570 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=0.65in,headheight=14pt,headsep=14pt,footskip=24pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,enumitem,needspace,fancyhdr,booktabs,array}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small CS240 $\cdot$ Lectures 1--2}
+\fancyhead[R]{\small \nouppercase{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcommand{\answer}[2]{\Needspace{2in}\subsection*{#1}#2}
+% Each problem has a fixed 4.65-inch block. Its prompt is measured;
+% at least 3 inches remain below the prompt for handwritten work.
+% To increase writing space, increase both the block height and margins/page plan.
+\newsavebox{\promptbox}
+\newcommand{\problem}[3]{%
+\sbox{\promptbox}{\begin{minipage}{\linewidth}
+{\large\bfseries #1. #2}\par\smallskip #3\par
+\end{minipage}}%
+\ifdim\dimexpr\ht\promptbox+\dp\promptbox\relax>1.65in
+\PackageWarning{practice}{Problem #1 prompt exceeds writing-space budget}\fi
+\noindent\begin{minipage}[t][4.65in][t]{\linewidth}
+\usebox{\promptbox}\par\vspace*{3in}\vfill
+\end{minipage}\par}
+\begin{document}
+\markboth{Study guide}{}
+{\LARGE\bfseries Sets and Counting}\par
+{\large CS240 practice set for Lectures 1 and 2}\par
+\vspace{0.15in}
+\textbf{Purpose.} Practice the mathematical content of the supplied lecture notes through concept checks, calculations, explanations, and proofs. These are original practice questions, not an official assignment or a prediction of exam questions.
+
+\textbf{How to use this packet.} Review the two-page guide, then attempt Problems 1--28 without the guide or answer key. For counting problems, write what one outcome is and what each factor counts. For proofs, justify each direction. Check your work against the detailed solutions beginning on page~\pageref{solutions} and retry missed questions later.
+
+\textbf{Writing space.} Every numbered problem has at least 3 inches of blank vertical space after its prompt, shared among its subparts. Problems are arranged two per page. All solutions are collected at the end.
+
+\section*{Lecture 1: sets and sample spaces}
+\begin{tabular}{@{}p{1.4in}p{5.55in}@{}}
+\toprule
+Idea & Meaning or test \\
+\midrule
+Sample space & $\Omega$ is the set of all possible outcomes. An event is a subset of $\Omega$. Discrete spaces are finite or countably infinite; continuous spaces include intervals of real values.\\[4pt]
+Sets and size & Order and repetitions do not change a set. $|A|$ counts its distinct elements. $\varnothing$ has no elements.\\[4pt]
+Membership & $x\in A$: $x$ is an element. $B\subseteq A$: every element of $B$ belongs to $A$. These are different statements.\\[4pt]
+Operations & $A\cup B$: in at least one. $A\cap B$: in both. $A\setminus B$: in $A$ but not $B$. $A^c=U\setminus A$: outside $A$ in the specified universe.\\[4pt]
+Symmetric difference & $A\triangle B=(A\setminus B)\cup(B\setminus A)$: in exactly one of the two sets.\\[4pt]
+Cartesian product & $A\times B=\{(a,b):a\in A,\ b\in B\}$. For finite sets, $|A\times B|=|A||B|$. Coordinate order matters.\\[4pt]
+Power set & $\mathcal P(A)$ is the set of all subsets of $A$. If $|A|=n$, then $|\mathcal P(A)|=2^n$: one include/exclude decision per element.\\[4pt]
+Partition & Nonempty, pairwise disjoint subsets whose union is the whole set. Every element belongs to exactly one block.\\
+\bottomrule
+\end{tabular}
+\subsection*{Identities and proof tools}
+\[
+A\cup\varnothing=A,\quad A\cap\varnothing=\varnothing,\quad
+A\cup U=U,\quad A\cap U=A.
+\]
+Union and intersection are commutative and associative. The distributive and De Morgan laws are
+\begin{align*}
+A\cup(B\cap C)&=(A\cup B)\cap(A\cup C),\\
+A\cap(B\cup C)&=(A\cap B)\cup(A\cap C),\\
+(A\cup B)^c&=A^c\cap B^c, & (A\cap B)^c&=A^c\cup B^c.
+\end{align*}
+To prove $X=Y$, show $X\subseteq Y$ and $Y\subseteq X$ by following an arbitrary element. To disprove an identity claimed for all sets, give one explicit counterexample.
+\newpage
+\begingroup\small\setlength{\parskip}{4pt}
+\section*{Lecture 2: counting}
+\textbf{Before choosing a formula:} Does order matter? Can an object be reused? Are the objects distinct? Are positions or groups named? Are rotations identified?
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{3.95in}p{2.9in}@{}}
+\toprule
+Situation & Count \\
+\midrule
+Successive stages with $n_i$ choices for each prior partial outcome & $n_1n_2\cdots n_k$ \\
+Length-$r$ strings from $n$ symbols, repetition allowed & $n^r$ \\
+Order all $n$ distinct objects in a line & $n!$ \\
+Order $r$ of $n$ distinct objects, no reuse & $P(n,r)=\dfrac{n!}{(n-r)!}$ \\
+Arrange $n\ge1$ distinct objects in a circle; rotations same, reflections different & $(n-1)!$ \\
+Arrange $n$ objects with indistinguishable type counts $n_1,\ldots,n_k$ & $\dfrac{n!}{n_1!\cdots n_k!}$ \\
+Choose $r$ of $n$ distinct objects; no roles or internal order & $\binom nr=\dfrac{n!}{r!(n-r)!}$ \\
+Assign $n$ distinct objects to named groups of sizes $n_1,\ldots,n_k$ & $\dfrac{n!}{n_1!\cdots n_k!}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Here $n_1+\cdots+n_k=n$ in the two factorial-ratio formulas, and $0!=1$. The notation $P(n,r)$ is the lecture's ${}^nP_r$.
+
+\textbf{Two useful extensions of the basic counting logic.} Add counts for disjoint cases. To count outcomes satisfying a requirement, it can be easier to subtract the outcomes failing it from the total. The problems also use a block to handle adjacent objects; remember to count the block's internal orders.
+
+\textbf{Group-label convention.} The multinomial partition formula in Lecture 2 is used here for \emph{named} groups. This makes clear that exchanging two groups of the same size changes the assignment. Within each group, member order does not matter.
+\subsection*{Binomial coefficients and identities}
+\begin{align*}
+(x+y)^n&=\sum_{r=0}^{n}\binom nr x^{n-r}y^r,\\
+\binom nr&=\binom n{n-r},\\
+\binom nr&=\binom{n-1}{r-1}+\binom{n-1}{r}\qquad(1\le r\le n-1),\\
+\sum_{r=0}^{n}\binom nr&=2^n.
+\end{align*}
+A coefficient counts choices of which factors supply one term. When substituting expressions such as $2x$ or $-y$, include their numerical powers and signs.
+\subsection*{Coverage and source map}
+\textbf{Problems 1--10:} Lecture 1, PDF pages 12--30 (sample spaces, sets, operations, subsets, partitions, identities, proofs).\\
+\textbf{Problems 11--20:} Lecture 2, PDF pages 4--40 (multiplication, permutations, circular arrangements, repeated objects, combinations, named groups).\\
+\textbf{Problems 21--24:} Lecture 2, PDF pages 41--46, and Lecture 1, page 20 (binomial theorem and counting identities).\\
+\textbf{Problems 25--28:} Mixed applications of both lectures.
+
+{\small Sources: Ghazaleh Parvini, \emph{Lecture 1: Introduction} and \emph{Lecture 2: Counting}, Fall 2026; supplied files \texttt{240-Lecture1.pdf} and \texttt{240-Lecture2.pdf}. Page references use PDF page numbers.}
+\endgroup
+\newpage
+
+\markboth{Lecture 1 practice}{}
+
+\problem{1}{Sample spaces and events}{(a) List the sample space $\Omega$ for two coin tosses, recording their order. Write the event $E$ that exactly one toss is heads.\\
+(b) Classify each sample space as finite discrete, countably infinite discrete, or continuous: a die result; the number of requests arriving in a day (no fixed upper bound); an idealized waiting time in $[0,\infty)$.\\
+(c) Explain the difference between an outcome and an event.}
+
+\problem{2}{Set notation and membership}{Let $A=\{1,2,2,3\}$ and $B=\{\{1\},2\}$.\\
+(a) Find $|A|$ and write $A$ in set-builder notation over the integers.\\
+(b) Mark each statement true or false and briefly justify:
+\[
+1\in A,\quad \{1\}\subseteq A,\quad \{1\}\in A,\quad
+\varnothing\subseteq A,\quad \varnothing\in A,\quad \{1\}\in B.
+\]}
+
+\newpage
+
+\markboth{Lecture 1 practice}{}
+
+\problem{3}{Computing set operations}{Let $U=\{1,2,\ldots,10\}$, $A=\{2,4,6,8,10\}$, and $B=\{2,3,5,7\}$. List the elements of each set:
+\[
+\text{(a) }A\cup B\qquad \text{(b) }A\cap B\qquad \text{(c) }A\setminus B
+\]
+\[
+\text{(d) }B\setminus A\qquad \text{(e) }A\triangle B\qquad \text{(f) }A^c.
+\]
+For (e), also explain its meaning in words.}
+
+\problem{4}{Cartesian products}{Let $X=\{a,b\}$ and $Y=\{0,1,2\}$.\\
+(a) List $X\times Y$ and give its size.\\
+(b) Are $X\times Y$ and $Y\times X$ equal? Give a specific witness.\\
+(c) Find $X\times\varnothing$.\\
+(d) A badge consists of one symbol from $X$ followed by one from $Y$. Explain why Cartesian products model these badges.}
+
+\newpage
+
+\markboth{Lecture 1 practice}{}
+
+\problem{5}{Power sets and binary encodings}{(a) List $\mathcal P(\{a,b,c\})$.\\
+(b) Using the coordinate order $(a,b,c,d,e)$, encode $\{b,d,e\}$ as a binary string and decode $10100$.\\
+(c) How many subsets does a seven-element set have? How many contain a specified element $a$? Explain both answers without listing the subsets.}
+
+\problem{6}{Disjointness and partitions}{Let $S=\{1,2,3,4,5,6\}$. Which collections are partitions of $S$? For every rejection, identify the failed condition.\\
+(a) $\{\{1,3,5\},\{2,4,6\}\}$\\
+(b) $\{\{1,2,3\},\{3,4\},\{5,6\}\}$\\
+(c) $\{\{1,2\},\{3,4\},\{5\}\}$\\
+(d) $\{\{1\},\{2\},\{3,4,5,6\}\}$}
+
+\newpage
+
+\markboth{Lecture 1 practice}{}
+
+\problem{7}{Simplifying set expressions}{Simplify each expression, showing the identities you use. Complements are relative to $U$.
+\[
+\text{(a) }(A\cap U)\cup\varnothing\qquad
+\text{(b) }(A\cup B)\cap(A\cup B^c)
+\]
+\[
+\text{(c) }(A\cup B)^c\cup(A^c\cap B)\qquad
+\text{(d) }A\setminus(B\cup C).
+\]
+For (d), give an answer using only intersection and complements.}
+
+\problem{8}{Proving De Morgan's law}{Prove
+\[
+(A\cup B)^c=A^c\cap B^c
+\]
+by showing both subset inclusions. Start each direction with an arbitrary element of the set on that side. Explicitly explain the logical step involving ``or'' and ``and.''}
+
+\newpage
+
+\markboth{Lecture 1 practice}{}
+
+\problem{9}{Proving the distributive law}{Prove the identity practiced in Lecture 1:
+\[
+A\cup(B\cap C)=(A\cup B)\cap(A\cup C).
+\]
+Use two subset inclusions. For the reverse direction, separate the cases $x\in A$ and $x\notin A$.}
+
+\problem{10}{Claims, counterexamples, and Venn regions}{(a) Is $A\setminus B=B\setminus A$ always true? Prove it or give a counterexample.\\
+(b) Is $A\subseteq B$ equivalent to $A\cap B=A$? Justify both directions.\\
+(c) Draw a two-set Venn diagram and shade $(A\cup B)\setminus(A\cap B)$. Identify the operation represented.}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{11}{The multiplication principle}{(a) A meal uses one of 4 entrees, one of 3 sides, and one of 2 drinks. Every combination is available. How many meals are possible?\\
+(b) A quiz has 5 true/false questions and 3 questions with 4 answer choices each. Exactly one answer must be selected per question. How many completed answer patterns exist?\\
+Explain what each factor counts.}
+
+\problem{12}{Repetition and leading-zero restrictions}{A code is a string of four digits from $\{0,1,\ldots,9\}$.\\
+(a) Count codes when repetition and an initial zero are allowed.\\
+(b) Count codes with no repeated digit; an initial zero is allowed.\\
+(c) Count four-digit positive integers with no repeated digit.\\
+Explain why the first two factors in (c) are equal even though a digit has already been used.}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{13}{Roles versus membership}{A club has 9 distinct members.\\
+(a) How many ways can it fill president, vice president, and treasurer, with no member holding two roles?\\
+(b) How many three-person committees can it choose if there are no roles?\\
+(c) Explain why the answer in (a) is $3!$ times the answer in (b).}
+
+\problem{14}{Arranging distinct objects in a line}{Six distinct books, including an algorithms book $A$ and a probability book $P$, are arranged on a shelf. Count arrangements in which:\\
+(a) there are no restrictions;\\
+(b) $A$ is at the far left;\\
+(c) $A$ and $P$ are adjacent.\\
+For (c), explain both the block arrangement and the internal order.}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{15}{Circular permutations}{Six distinct people sit around a round table. Rotations count as the same arrangement; reflections count as different.\\
+(a) How many arrangements are possible? Explain why.\\
+(b) How many have Ava and Ben adjacent?\\
+(c) If instead the six seats are numbered, how many unrestricted arrangements are possible?}
+
+\problem{16}{Indistinguishable objects}{(a) How many distinct strings can be made by rearranging all the letters of \texttt{BANANA}?\\
+(b) How many of those strings begin with B?\\
+(c) A row contains 3 identical red tiles, 2 identical blue tiles, and 2 identical green tiles. How many different color patterns exist?\\
+Explain the factorials in each denominator.}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{17}{Combinations and fixed counts}{(a) From 11 distinct volunteers, how many groups of 4 can be selected?\\
+(b) How many length-8 H/T strings contain exactly 3 H's?\\
+(c) Explain why choosing the 3 H positions or choosing the 5 T positions gives the same count.\\
+State why order is handled differently in (a) and (b), yet combinations apply to both.}
+
+\problem{18}{Committees with category requirements}{A pool contains 6 CS students and 4 mathematics students; these are disjoint groups of distinct people. A committee has 4 members and no roles. Count committees with:\\
+(a) exactly 2 students from each group;\\
+(b) at least 1 mathematics student.\\
+For (b), solve by subtracting an unwanted case from the total.}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{19}{Partitions into named groups}{Eight distinct students are assigned to named teams: Design (3 students), Build (3), and Test (2). Order within a team does not matter.\\
+(a) Count assignments by successive choices.\\
+(b) Rewrite the result as a single factorial ratio.\\
+(c) Explain why you do not divide by $2!$ just because two teams have size 3.}
+
+\problem{20}{Diagnosing counting mistakes}{Correct each argument and explain the error.\\
+(a) ``Choosing 3 people from 8 gives $8\cdot7\cdot6=336$ committees.''\\
+(b) ``Five distinct people around a round table give $5!$ arrangements, even when rotations are equivalent.''\\
+(c) ``The letters of \texttt{LEVEL} have $5!/2!$ distinct arrangements.''\\
+(d) ``A four-element set has $4^2$ subsets because every element has two choices.''}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{21}{Expanding with the binomial theorem}{(a) Expand $(x+y)^5$ completely using binomial coefficients.\\
+(b) Explain why the coefficient of $x^3y^2$ counts a choice of positions among five factors.\\
+(c) State the general term of $(x+y)^n$, using $r$ for the exponent of $y$.}
+
+\problem{22}{Extracting coefficients}{Find each coefficient without fully expanding. Show which term contributes.\\
+(a) The coefficient of $x^5y^3$ in $(x+y)^8$.\\
+(b) The coefficient of $x^3y^4$ in $(2x-y)^7$.\\
+(c) The coefficient of $x^4y^4$ in $(x+y)^7$.\\
+Include both the numerical factors and any sign in (b).}
+
+\newpage
+
+\markboth{Lecture 2 practice}{}
+
+\problem{23}{Symmetry and Pascal's rule}{(a) Explain combinatorially why $\binom{10}{3}=\binom{10}{7}$.\\
+(b) A group of 9 people includes Maya. Count four-person committees by separating those containing Maya from those excluding her.\\
+(c) Generalize (b) to prove
+$\binom nr=\binom{n-1}{r-1}+\binom{n-1}{r}$ for $1\le r\le n-1$.}
+
+\problem{24}{Connecting subsets to binomial coefficients}{Let $S$ have $n$ elements.\\
+(a) Give a counting explanation of $\sum_{r=0}^{n}\binom nr=2^n$.\\
+(b) Derive the same identity by substituting values into the binomial theorem.\\
+(c) For $n\ge1$, use the binomial theorem to evaluate $\sum_{r=0}^{n}(-1)^r\binom nr$. What does this say about the numbers of even-size and odd-size subsets?}
+
+\newpage
+
+\markboth{Mixed practice}{}
+
+\problem{25}{Mixed practice: dice as sets}{Roll a red die and a blue die, recording $(\text{red},\text{blue})$. Let $D=\{1,\ldots,6\}$, $A$ be the event that the sum is 7, and $B$ the event of equal results.\\
+(a) Write $\Omega$ as a Cartesian product and find $|\Omega|$.\\
+(b) List $A$ and $B$. Are they disjoint?\\
+(c) Find $|A\cup B|$ and $|(A\cup B)^c|$, with complement relative to $\Omega$.}
+
+\problem{26}{Mixed practice: binary strings and events}{Let $\Omega=\{0,1\}^6$, the length-6 binary strings. Let $A$ mean ``the first bit is 1'' and $B$ mean ``there are exactly two 1's.''\\
+(a) Find $|\Omega|$, $|A|$, and $|B|$.\\
+(b) Find $|A\cap B|$ and $|B\setminus A|$.\\
+(c) Explain why $\{A\cap B,\,B\setminus A\}$ is a partition of $B$, and verify this by adding the two counts.}
+
+\newpage
+
+\markboth{Mixed practice}{}
+
+\problem{27}{Mixed practice: a committee and its leader}{From 8 distinct people, choose a four-person committee and designate one of its members as leader. The other three members have no roles.\\
+(a) Count by choosing the committee first.\\
+(b) Count by choosing the leader first.\\
+(c) Explain why the counts agree. State the resulting identity for a committee of size $r$ from $n$ people, where $1\le r\le n$.}
+
+\problem{28}{Mixed practice: choose and defend a method}{For each independent situation, give a count and explain the method.\\
+(a) A length-5 access code uses any of 4 symbols, with repetition.\\
+(b) Three distinct prizes go to three different people from a pool of 7.\\
+(c) Seven distinct people are assigned to named teams of sizes 2, 2, and 3.\\
+(d) A length-7 binary string has exactly three 1's and must end in 0.}
+
+\newpage
+
+\markboth{Detailed solutions}{}
+\section*{Detailed solutions and answer key}\label{solutions}
+Compare the reasoning as well as the final answer. A correct formula should match the outcomes being counted; a set proof should establish every claimed inclusion.
+
+\answer{1. Sample spaces and events}{(a) $\Omega=\{HH,HT,TH,TT\}$ and $E=\{HT,TH\}$. The outcomes $HT$ and $TH$ differ because order is recorded.
+
+(b) A die has a \textbf{finite discrete} sample space $\{1,\ldots,6\}$. The request count has a \textbf{countably infinite discrete} sample space $\{0,1,2,\ldots\}$. The idealized waiting time has a \textbf{continuous} sample space $[0,\infty)$.
+
+(c) An outcome is one element of $\Omega$; an event is a subset of $\Omega$. For example, $HT$ is an outcome, while $\{HT\}$ is a one-outcome event. No assumption about equally likely outcomes is needed to describe these sets.}
+
+\answer{2. Set notation and membership}{(a) Repetitions do not create new elements, so $A=\{1,2,3\}$ and $|A|=3$. One set-builder form is $A=\{x\in\mathbb Z:1\le x\le3\}$.
+
+(b) In order: \textbf{true, true, false, true, false, true}. The number $1$ belongs to $A$, and every element of the singleton $\{1\}$ belongs to $A$. However, $A$ does not contain the set $\{1\}$ as an element. The empty set is a subset of every set because it has no element that could violate the subset condition. It is not an element of this particular $A$. Finally, the set $\{1\}$ is explicitly listed as an element of $B$.
+
+\textit{Common mistake:} $\in$ tests whether an object is one element; $\subseteq$ tests whether all elements of a set are contained in another set.}
+
+\answer{3. Computing set operations}{The results are
+\begin{align*}
+A\cup B&=\{2,3,4,5,6,7,8,10\},& A\cap B&=\{2\},\\
+A\setminus B&=\{4,6,8,10\},& B\setminus A&=\{3,5,7\},\\
+A\triangle B&=\{3,4,5,6,7,8,10\},& A^c&=\{1,3,5,7,9\}.
+\end{align*}
+Union means membership in at least one set, intersection means membership in both, and difference keeps elements of the first set that are absent from the second. Symmetric difference means membership in \textbf{exactly one} of $A$ and $B$, so the shared element $2$ is removed. The complement is taken relative to the stated universe $U$.}
+
+\answer{4. Cartesian products}{(a) $X\times Y=\{(a,0),(a,1),(a,2),(b,0),(b,1),(b,2)\}$, so $|X\times Y|=2\cdot3=6$.
+
+(b) They are not equal: $(a,0)\in X\times Y$, but $(a,0)\notin Y\times X$, since $a\notin Y$. Ordered pairs keep track of which coordinate comes from which set.
+
+(c) $X\times\varnothing=\varnothing$. No pair can have a second coordinate from a set with no elements.
+
+(d) Each badge has a unique first and second symbol, so badges correspond one-to-one with the ordered pairs in $X\times Y$. There are two choices for the first symbol and three for the second.}
+
+\answer{5. Power sets and binary encodings}{(a) $\mathcal P(\{a,b,c\})=\{\varnothing,\{a\},\{b\},\{c\},\{a,b\},\{a,c\},\{b,c\},\{a,b,c\}\}$.
+
+(b) A $1$ means the corresponding element is included. Thus $\{b,d,e\}$ becomes $01011$, and $10100$ represents $\{a,c\}$.
+
+(c) Each of seven elements has two choices: included or excluded. Hence there are $2^7=128$ subsets. If $a$ must be included, only the other six choices are free, giving $2^6=64$. The empty set and the full set are both included in the total of $128$.}
+
+\answer{6. Disjointness and partitions}{A partition consists of nonempty subsets whose union is $S$ and that are pairwise disjoint.
+
+(a) \textbf{Yes.} The odd and even elements cover $S$ with no overlap.
+
+(b) \textbf{No.} The first and second blocks both contain $3$, so they are not disjoint.
+
+(c) \textbf{No.} The union omits $6$, so it is not all of $S$.
+
+(d) \textbf{Yes.} Every element of $S$ occurs in exactly one nonempty block.
+
+To check pairwise disjointness, no two different blocks may overlap; checking just the intersection of all blocks at once is insufficient.}
+
+\answer{7. Simplifying set expressions}{(a) $A\cap U=A$ and $A\cup\varnothing=A$, so the answer is $\boxed{A}$.
+
+(b) Reverse the distributive law:
+\[
+(A\cup B)\cap(A\cup B^c)=A\cup(B\cap B^c)=A\cup\varnothing=\boxed{A}.
+\]
+(c) Apply De Morgan's law, factor $A^c$, and use $B^c\cup B=U$:
+\[
+(A^c\cap B^c)\cup(A^c\cap B)=A^c\cap(B^c\cup B)=\boxed{A^c}.
+\]
+(d) Difference means intersecting with the complement, so
+\[
+A\setminus(B\cup C)=A\cap(B\cup C)^c=\boxed{A\cap B^c\cap C^c}.
+\]}
+
+\answer{8. Proving De Morgan's law}{\textbf{First inclusion.} Let $x\in(A\cup B)^c$. Then $x\notin A\cup B$. Membership in $A\cup B$ means $x\in A$ or $x\in B$, with inclusive ``or.'' For this to be false, both alternatives must be false: $x\notin A$ and $x\notin B$. Thus $x\in A^c\cap B^c$.
+
+\textbf{Reverse inclusion.} Let $x\in A^c\cap B^c$. Then $x\notin A$ and $x\notin B$. Therefore $x$ belongs to neither set, so $x\notin A\cup B$, which means $x\in(A\cup B)^c$.
+
+Both inclusions hold, proving the equality. The key logic is
+$\neg(P\lor Q)\iff(\neg P)\land(\neg Q)$. Proving only one inclusion would establish only a subset relationship.}
+
+\answer{9. Proving the distributive law}{\textbf{First inclusion.} Let $x\in A\cup(B\cap C)$. If $x\in A$, it belongs to both $A\cup B$ and $A\cup C$. Otherwise, membership on the left implies $x\in B\cap C$, so $x\in B$ and $x\in C$; again it belongs to both unions. Thus $x\in(A\cup B)\cap(A\cup C)$.
+
+\textbf{Reverse inclusion.} Let $x\in(A\cup B)\cap(A\cup C)$. If $x\in A$, it immediately belongs to $A\cup(B\cap C)$. If $x\notin A$, membership in $A\cup B$ forces $x\in B$, and membership in $A\cup C$ forces $x\in C$. Hence $x\in B\cap C$, so it belongs to the left side.
+
+Each side is a subset of the other, which proves the identity.}
+
+\answer{10. Claims, counterexamples, and Venn regions}{(a) \textbf{False.} Take $A=\{1\}$ and $B=\{2\}$. Then $A\setminus B=\{1\}$ while $B\setminus A=\{2\}$. One counterexample disproves a universal assertion.
+
+(b) \textbf{True.} If $A\subseteq B$, every element of $A$ is in both sets, so $A\subseteq A\cap B$; the reverse inclusion always holds. Therefore $A\cap B=A$. Conversely, if $A\cap B=A$ and $x\in A$, then $x\in A\cap B$, so $x\in B$. Thus $A\subseteq B$.
+
+(c) Shade the two outer crescents: the part of $A$ outside $B$ and the part of $B$ outside $A$. Leave the overlap and the exterior unshaded. This is the symmetric difference $A\triangle B=(A\setminus B)\cup(B\setminus A)$.}
+
+\answer{11. The multiplication principle}{(a) The choices have $4$, $3$, and $2$ options at successive stages. The multiplication principle gives $4\cdot3\cdot2=\boxed{24}$ meals.
+
+(b) Each of five true/false questions contributes a factor of $2$, and each of three four-choice questions contributes a factor of $4$. Thus there are
+\[
+2^5\cdot4^3=32\cdot64=\boxed{2048}
+\]
+completed answer patterns. This counts all response patterns, regardless of correctness. Multiplication applies because each partial pattern has the stated number of extensions at the next step.}
+
+\answer{12. Repetition and leading-zero restrictions}{(a) Each position has ten choices, so there are $10^4=\boxed{10{,}000}$ codes.
+
+(b) The numbers of choices are $10,9,8,7$, giving $10\cdot9\cdot8\cdot7=\boxed{5040}$.
+
+(c) The first digit has nine choices because it cannot be zero. The second digit also has nine choices: zero is now allowed, but the used first digit is excluded. The remaining positions have eight and seven choices. Hence
+\[
+9\cdot9\cdot8\cdot7=\boxed{4536}.
+\]
+A code such as $0123$ is permitted in (a) and (b), but is not a four-digit positive integer in (c).}
+
+\answer{13. Roles versus membership}{(a) The roles are distinct, so use an ordered selection:
+$P(9,3)=9\cdot8\cdot7=\boxed{504}$.
+
+(b) A committee records only membership, so use an unordered selection:
+$\binom93=\dfrac{9\cdot8\cdot7}{3\cdot2\cdot1}=\boxed{84}$.
+
+(c) Every fixed three-person committee can assign its members to the three roles in $3!=6$ ways. Thus the role assignments count each possible committee six times: $504=6\cdot84$. We divide by $3!$ only when these six orders represent the same outcome.}
+
+\answer{14. Arranging distinct objects in a line}{(a) All six books are distinct, so there are $6!=\boxed{720}$ orders.
+
+(b) Fix $A$ in the first position and arrange the other five books: $5!=\boxed{120}$.
+
+(c) Treat $A$ and $P$ as one block. The block and the other four books form five distinct units, which have $5!$ orders. Within the block, the order can be $AP$ or $PA$. Hence there are $2\cdot5!=\boxed{240}$ arrangements.
+
+Each adjacent arrangement determines exactly one block order and one internal order, so this construction does not overcount.}
+
+\answer{15. Circular permutations}{(a) Fix one person as a reference and arrange the other five clockwise: $(6-1)!=\boxed{120}$. Equivalently, each circular order appears six times among the $6!$ linear seat lists, once per rotation.
+
+(b) Treat Ava and Ben as a block. There are five units around the circle, so their circular arrangements number $(5-1)!=4!$. The pair has two internal orders, yielding $2\cdot4!=\boxed{48}$.
+
+(c) Numbered seats distinguish rotations, so there are $6!=\boxed{720}$ assignments. We do not divide by two for reflections in any part: the problem explicitly treats them as different.}
+
+\answer{16. Indistinguishable objects}{(a) There are six letters, with three A's and two N's. Thus
+\[
+\frac{6!}{3!\,2!\,1!}=\boxed{60}.
+\]
+If copies were temporarily labeled, permuting the three A labels and two N labels would produce $3!2!$ descriptions of each visible string. Division removes these duplicates.
+
+(b) Fix B first. The remaining five positions contain three A's and two N's, giving $5!/(3!2!)=\boxed{10}$.
+
+(c) There are seven positions, with color multiplicities $3,2,2$, so the answer is $7!/(3!2!2!)=\boxed{210}$. The denominator removes permutations within each identical-color group.}
+
+\answer{17. Combinations and fixed counts}{(a) A group has no internal order, so there are $\binom{11}{4}=\boxed{330}$ groups.
+
+(b) The eight positions are distinguishable. Choose which three positions hold H; the remaining five must hold T. Thus there are $\binom83=\boxed{56}$ strings.
+
+(c) Every three-position H set determines exactly one complementary five-position T set. Hence $\binom83=\binom85=56$.
+
+In (a), volunteers form an unordered group. In (b), the final string is ordered, but it is uniquely determined by an unordered subset of its \emph{position labels}. We are not treating the eight positions as interchangeable.}
+
+\answer{18. Committees with category requirements}{(a) Choose two CS students in $\binom62$ ways and two mathematics students in $\binom42$ ways. Each pair of choices defines one committee, giving
+\[
+\binom62\binom42=15\cdot6=\boxed{90}.
+\]
+(b) There are $\binom{10}{4}=210$ total committees. A committee with no mathematics students chooses all four from the six CS students, giving $\binom64=15$. Therefore
+\[
+\binom{10}{4}-\binom64=210-15=\boxed{195}.
+\]
+The excluded case is exactly the complement of ``at least one mathematics student.}
+
+\answer{19. Partitions into named groups}{(a) Choose Design first, then Build from the remaining five, then Test from the remaining two:
+\[
+\binom83\binom53\binom22=56\cdot10\cdot1=\boxed{560}.
+\]
+(b) Expanding and canceling gives
+\[
+\frac{8!}{3!5!}\frac{5!}{3!2!}\frac{2!}{2!0!}
+=\frac{8!}{3!3!2!}=560.
+\]
+(c) The teams have different names. Swapping the membership of Design and Build changes the assignment, even though they have equal sizes. Division by an additional $2!$ would incorrectly identify distinct outcomes. The multinomial formula here counts assignments to \textbf{named} groups.}
+
+\answer{20. Diagnosing counting mistakes}{(a) $8\cdot7\cdot6$ counts ordered selections. Each committee appears $3!$ times, so the correct count is $\binom83=336/6=\boxed{56}$.
+
+(b) The linear count includes five rotations per circular order. Thus $5!/5=4!=\boxed{24}$, assuming reflections remain distinct.
+
+(c) Both L and E occur twice. Remove both sources of duplication:
+$5!/(2!2!)=\boxed{30}$.
+
+(d) The reasoning says there are four separate binary choices, giving $\boxed{2^4}$, not $4^2$. Both happen to equal $16$, so the numerical answer hides the error. With five elements, the correct total is $2^5=32$, whereas the incorrect pattern gives $5^2=25$.}
+
+\answer{21. Expanding with the binomial theorem}{(a) The coefficients are $\binom50,\binom51,\ldots,\binom55$, so
+\[
+(x+y)^5=x^5+5x^4y+10x^3y^2+10x^2y^3+5xy^4+y^5.
+\]
+(b) Think of multiplying five factors $(x+y)$. To obtain $x^3y^2$, select the two factors supplying $y$; the other three supply $x$. There are $\binom52=10$ such selections.
+
+(c) The general term is $\binom nr x^{n-r}y^r$, for $r=0,1,\ldots,n$, and
+$(x+y)^n=\sum_{r=0}^n\binom nr x^{n-r}y^r$. Every term has total degree $n$.}
+
+\answer{22. Extracting coefficients}{(a) Choose three factors to contribute $y$. The term is $\binom83x^5y^3$, so the coefficient is $\boxed{56}$.
+
+(b) Four factors must supply $-y$ and the other three must supply $2x$. The term is
+\[
+\binom74(2x)^3(-y)^4=35\cdot8\cdot1\,x^3y^4=280x^3y^4.
+\]
+The coefficient is $\boxed{280}$. The sign is positive because four negative factors are multiplied.
+
+(c) The coefficient is $\boxed{0}$. All terms of $(x+y)^7$ have total degree seven, whereas $x^4y^4$ has total degree eight.}
+
+\answer{23. Symmetry and Pascal's rule}{(a) Choosing three people to include uniquely determines the seven to exclude, and vice versa. This is a one-to-one correspondence, so the counts agree; both are $120$.
+
+(b) Committees containing Maya choose their other three people from eight: $\binom83=56$. Committees excluding her choose all four from eight: $\binom84=70$. These cases are disjoint and exhaustive, giving $56+70=\boxed{126}=\binom94$.
+
+(c) Fix one distinguished element of an $n$-element set. An $r$-element subset either includes it, leaving $r-1$ choices from $n-1$ elements, or excludes it, requiring $r$ choices from those $n-1$ elements. Adding the two disjoint cases proves Pascal's rule. A counting proof should identify what is counted and why every outcome is counted exactly once.}
+
+\answer{24. Connecting subsets to binomial coefficients}{(a) Count all subsets of $S$ in two ways. Independent include/exclude decisions give $2^n$. Alternatively, separate subsets by their size $r$. There are $\binom nr$ of each size, and these classes form a partition of the power set. Adding over all sizes gives the same total.
+
+(b) Set $x=y=1$ in $(x+y)^n=\sum_{r=0}^n\binom nr x^{n-r}y^r$. Then $2^n=\sum_{r=0}^n\binom nr$.
+
+(c) Set $x=1$ and $y=-1$. For $n\ge1$,
+\[
+\sum_{r=0}^n(-1)^r\binom nr=(1-1)^n=\boxed{0}.
+\]
+Even $r$ contribute positively and odd $r$ negatively, so the numbers of even-size and odd-size subsets are equal. Their sum is $2^n$, so each count is $2^{n-1}$.}
+
+\answer{25. Mixed practice: dice as sets}{(a) $\Omega=D\times D$ and $|\Omega|=6\cdot6=\boxed{36}$.
+
+(b) The event sets are
+\begin{align*}
+A&=\{(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\},\\
+B&=\{(1,1),(2,2),(3,3),(4,4),(5,5),(6,6)\}.
+\end{align*}
+They are disjoint: equal results have an even sum, so they cannot sum to seven.
+
+(c) Since there is no overlap, $|A\cup B|=6+6=\boxed{12}$. The complement contains all remaining outcomes, so $|(A\cup B)^c|=36-12=\boxed{24}$. These are counts, not probability calculations.}
+
+\answer{26. Mixed practice: binary strings and events}{(a) There are two choices for each bit, so $|\Omega|=2^6=64$. In $A$, the first bit is fixed and the other five are free, so $|A|=2^5=32$. In $B$, choose the two positions containing $1$, so $|B|=\binom62=15$.
+
+(b) In $A\cap B$, the first bit supplies one of the two $1$'s. Choose the other among five positions: $|A\cap B|=\binom51=\boxed{5}$. In $B\setminus A$, the first bit is $0$, so choose both $1$ positions from the other five: $|B\setminus A|=\binom52=\boxed{10}$.
+
+(c) Every string in $B$ starts with either $1$ or $0$, and cannot start with both. The two nonempty blocks are disjoint and cover $B$. Their sizes add to $5+10=15=|B|$. This also illustrates $\binom62=\binom51+\binom52$.}
+
+\answer{27. Mixed practice: a committee and its leader}{(a) Choose the committee in $\binom84=70$ ways, then choose one of its four members as leader. The count is $4\binom84=\boxed{280}$.
+
+(b) Choose the leader in eight ways, then choose the other three members from the remaining seven. This gives $8\binom73=8\cdot35=\boxed{280}$.
+
+(c) Both procedures describe exactly the same objects: a four-person subset together with one marked member. Each final outcome has exactly one committee and exactly one leader, so each procedure counts it once. In general,
+\[
+\boxed{r\binom nr=n\binom{n-1}{r-1}}.
+\]
+This is an application of counting one collection in two different ways.}
+
+\answer{28. Mixed practice: choose and defend a method}{(a) Each of five positions has four choices. By the multiplication principle, the count is $4^5=\boxed{1024}$.
+
+(b) The prizes distinguish the roles of their recipients, and no recipient repeats. Thus $P(7,3)=7\cdot6\cdot5=\boxed{210}$.
+
+(c) Assign people to the first team, then the second, then the third:
+\[
+\binom72\binom52\binom33=\frac{7!}{2!2!3!}=\boxed{210}.
+\]
+Team names matter; order within a team does not.
+
+(d) The last position is fixed as $0$. Choose the three $1$ positions among the first six, giving $\binom63=\boxed{20}$.}
+
+\end{document}

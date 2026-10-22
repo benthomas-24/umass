@@ -1,0 +1,282 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\begin{document}
+Problem 1.
+
+\textbf{Problem}: Let $A$, $B$, and $C$ be subsets of a universal set $U$. Suppose that $$A \cup C = B \cup C$$ $$A \cap C = B \cap C$$. Prove that if $$A - C = B - C$$ then $$A = B$$.
+
+\textbf{Solution}: If we take all values of $\boldsymbol{x}$ such that $$x \in A$$ and $$x \in C$$ we know that $$x \in B$$ because of the fact $$A \cap C = B \cap C$$ and $$x \in A \cap C$$. The same can be said for if $$x \notin C$$ that $$x \in B$$ because we know $$x \in A - C$$ and $$A - C = B - C$$ This is perciecly what $\boldsymbol{A \subseteq B}$ means. Everything can be said likewise for $\boldsymbol{B \subseteq A}$ because all expressions we looked at are commutative. This thus proves $$A = B$$ 
+
+
+Problem 2.
+
+\textbf{Problem}: How many integers between $15,000$ and $74,999$, inclusive, are divisible by $6$ or $10$ or $15$?
+Your solution must explicitly use the principle of \textbf{inclusion–exclusion}.
+
+\textbf{Solution}: We can start this problem by using the formula $$\lfloor\frac{b}{x}\rfloor - \lfloor\frac{a-1}{x}\rfloor$$. \\ \\ Now, to calculate the number of integers that are divisible by $x$ such that $x \in \{6, 10, 15\}$, we just need to do $\lfloor{\frac{59,999}{x}\rfloor}$. So $\forall x$, this works out to be: $$\lfloor{\frac{59,999}{6}\rfloor} = 9,999$$ $$\lfloor{\frac{59,999}{10}\rfloor} = 5,999$$ $$\lfloor{\frac{59,999}{15}\rfloor} = 3,999$$
+
+Problem 3.
+
+\textbf{Problem}: Give a combinatorial proof of the identity $$\binom{m+n}{4} = \binom{m}{4} + \binom{m}{3}n + \binom{m}{2}\binom{n}{2} + m\binom{n}{3} + \binom{n}{4}$$
+
+\textbf{Solution}: We should start by rewriting the right side of the equation as $$\binom{m+n}{4} = \binom{m}{4}\binom{n}{0} + \binom{m}{3}\binom{n}{1} + \binom{m}{2}\binom{n}{2} + \binom{m}{1}\binom{n}{3} + \binom{m}{0}\binom{n}{4}$$ This makes it easier for us to read the equation as choosing 4 elements from a collection with \textbf{\textit{m}} elements of one type and \textbf{\textit{n}} of another. As we move down the sum, we can see that number of items of type \textbf{\textit{m}} decreases each time where as the number of items of type \textbf{\textit{n}} increases each time. This sum is the same as the left side of the equation because for every pair, there is exactly four items chosen from the given elements and there is no set over counted.
+
+
+Problem 4.
+
+\textbf{Problem}: A committee of 7 members is chosen from:
+\begin{itemize}
+    \item 8 faculty members,
+    \item 7 graduate students,
+    \item 6 undergraduate students.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.]
+  \item In how many ways can the committee be chosen?
+  \item In how many ways can it be chosen if at least 3 faculty members and at least 2 undergraduate students must be included?
+\end{enumerate}
+For part (b), give your answer as a sum of binomial-coefficient expressions before simplifying.
+
+\textbf{Solution}: 
+\begin{enumerate}[label=\alph*.]
+  \item The problem doesn't tell us that this committee has unique roles that need to be filled so with that we can properly assume that each of the 7 chairs are in equal power to each other. This allows us to ignore the roles of the members and write the answer as $$\binom{8 + 7 + 6}{7} = \binom{21}{7} = 116,280$$.
+  \item We can write this as a sum of binomial coefficients where we will show the number of ways to choose at least 3 faculty members and the number of ways to choose 2 undergraduate students. The rest can be chosen from the remaining pool of people. We write this as: \[
+\binom{8}{3}\binom{6}{2}\binom{7}{2}
++\binom{8}{3}\binom{6}{3}\binom{7}{1}
++\binom{8}{3}\binom{6}{4}
++\binom{8}{4}\binom{6}{2}\binom{7}{1}
++\binom{8}{4}\binom{6}{3}
++\binom{8}{5}\binom{6}{2}
+= 35{,}910.
+\]
+\end{enumerate} 
+
+Problem 5. Pigeonhole principle.
+
+\textbf{Problem}: A game store has cards representing 10 different characters, with 8 cards available for each character.
+
+A player wants to obtain 5 cards representing the same character.
+
+\begin{enumerate}[label=(\alph*)]
+  \item What is the minimum number of cards that must be drawn to guarantee that the player has 5 cards of some character?
+  \item What if the player wants 5 cards of one particular character? What is the minimum number of cards that must be drawn to guarantee this?
+\end{enumerate}
+Explain the worst-case arrangement in each part.
+
+
+\textbf{Solution}: 
+\begin{enumerate}[label=(\alph*)]
+    \item To avoid getting 5 of any character, you can draw at most 4 cards for each of the 10 characters. That is the same as $$10 \cdot 4 = 40$$ without meeting the goal of at least one guaranteed to have 5. However, if we add one more, that one more is going to need a place to go which means that it's guaranteed that the most "spread out" the situation could get is where at least one set of cards has 5 of the same character.
+    \item In the worst case, the player could first draw all 8 cards of
+each of the 9 other characters, for a total of $9\cdot8=72$ cards.
+They could then draw 4 cards of the desired character and still have
+fewer than 5 of that character. Thus 76 draws are not enough.
+The next card must be of the desired character, so the minimum
+number of draws that guarantees 5 is
+\[
+9\cdot8+4+1=77.
+\]
+\end{enumerate}
+
+Problem 6. Multiset selection.
+
+\textbf{Problem}: An ice-cream shop offers 7 flavors. You order 24 scoops, where multiple scoops of the same flavor are allowed.
+
+\begin{enumerate}[label=(\alph*)]
+  \item How many different selections of 24 scoops are possible if there are no restrictions?
+  \item How many selections are possible if you must choose at least 2 scoops of every flavor?
+  \item How many selections are possible if you must choose at least 4 chocolate scoops and at most 3 vanilla scoops?
+\end{enumerate}
+For part (c), solve using the all-cases-minus-unwanted-cases approach.
+
+\begin{enumerate}[label=(\alph*)]
+    \item There are $24^7$ number of scoops available because there are 24 scoops and 7 ways to choose them with the ability to replace options.
+    \item There are $\binom{10 + 7 - 1}{7-1} = \binom{16}{6}$ possibilities to choose at least 2 scoops of every flavor. 
+    \item First, set aside the required 4 chocolate scoops. The remaining
+20 scoops can be distributed among all 7 flavors in
+\(\binom{20+7-1}{7-1}=\binom{26}{6}\) ways.
+
+Now subtract the selections with at least 4 vanilla scoops, since
+these violate the limit of at most 3. Setting aside 4 chocolate and
+4 vanilla scoops leaves 16 scoops to distribute among the 7 flavors,
+giving \(\binom{16+7-1}{7-1}=\binom{22}{6}\) unwanted selections.
+Therefore, the answer is
+\[
+{\binom{26}{6}-\binom{22}{6}}.
+\]
+\end{enumerate}
+
+Problem 7. Functions.
+
+\textbf{Problem}: Let $A$ be a set with 7 elements and $B$ a set with 10 elements.
+
+\begin{enumerate}[label=(\alph*)]
+  \item How many functions are there from $A$ to $B$?
+  \item How many one-to-one functions are there from $A$ to $B$?
+  \item How many onto functions are there from $B$ to $A$?
+\end{enumerate}
+For part (c), you may solve by considering the possible distributions of the 10 elements of $B$ among the 7 elements of $A$, with every element of $A$ receiving at least one preimage.
+
+
+\textbf{Solution}: 
+\begin{enumerate}[label=(\alph*)]
+    \item There are $10^7$ because each of the 7 inputs has 10 choices and repeated outputs are allowed
+    \item One-to-one means that different inputs must get different outputs. This means that the first input should have 10 choices, next has 9, and so on until there are 4 choices left for the 7th. The equation would be $\frac{10!}{3!} = 604,800$ 
+    \item For a function $f:B\to A$, $B$ is the domain and $A$ is the
+codomain. The function is onto if every element of $A$ is the image
+of at least one element of $B$. By inclusion--exclusion, the number
+of onto functions is
+$$
+\sum_{j=0}^{7}(-1)^j\binom{7}{j}(7-j)^{10}
+=29{,}635{,}200.
+$$
+\end{enumerate}
+
+
+Problem 8. Binomial outcomes.
+
+\textbf{Problem}: A fair coin is flipped 13 times.
+
+\begin{enumerate}[label=(\alph*)]
+  \item How many outcomes contain at least 7 heads?
+  \item Solve part (a) in two different ways:
+  \begin{itemize}
+    \item by directly counting the desired outcomes;
+    \item by counting all outcomes and subtracting the unwanted outcomes.
+  \end{itemize}
+  \item Explain why the two methods must give the same answer.
+\end{enumerate}
+
+\textbf{Solution}:
+\begin{enumerate}[label=(\alph*)]
+  \item An outcome with exactly $k$ heads is determined by choosing
+  which $k$ of the 13 flips are heads. We can write the number of
+  outcomes with at least 7 heads as a sum like:
+  $$
+  \sum_{k=7}^{13}\binom{13}{k}=4{,}096.
+  $$
+
+  \item Directly counting the desired outcomes gives
+  $$
+  \binom{13}{7}+\binom{13}{8}+\cdots+\binom{13}{13}
+  =4{,}096.
+  $$
+  Alternatively, there are $2^{13}$ outcomes in total. The
+  unwanted outcomes have 0 through 6 heads, so subtracting them gives
+  $$
+  2^{13}-\sum_{k=0}^{6}\binom{13}{k}
+  =8{,}192-4{,}096
+  =4{,}096.
+  $$
+
+  \item Every outcome has either at least 7 heads or at most 6 heads.
+  These two groups do not overlap and together contain every outcome.
+  Thus counting the first group directly must give the same result
+  as counting all outcomes and subtracting the second group.
+\end{enumerate}
+
+Problem 9. Dependent probabilities.
+
+\textbf{Problem}: A shelf contains 12 books:
+\begin{itemize}
+    \item 7 fiction books,
+    \item 5 nonfiction books.
+\end{itemize}
+
+Four books are selected uniformly at random without replacement.
+
+\begin{enumerate}[label=(\alph*)]
+  \item What is the probability that all four selected books are fiction?
+  \item What is the probability that the selection contains at least one book of each type?
+  \item Are the events in parts (a) and (b) complements? Explain your answer.
+\end{enumerate}
+
+\textbf{Solution}:
+\begin{enumerate}[label=(\alph*)]
+  \item To select four fiction books, choose all four from the
+  7 fiction books. Thus
+  $$
+  P(\text{all fiction})
+  =\frac{\binom{7}{4}}{\binom{12}{4}}
+  =\frac{35}{495}
+  =\frac{7}{99}.
+  $$
+
+  \item A selection fails to contain both types only if all four
+  books are fiction or all four are nonfiction. These cases do not
+  overlap, so we can write it as:
+  $$
+  P(\text{at least one of each type})
+  =1-\frac{\binom{7}{4}+\binom{5}{4}}{\binom{12}{4}}
+  =1-\frac{35+5}{495}
+  =\frac{91}{99}.
+  $$
+
+  \item No. The complement of ``all four are fiction'' is
+  ``at least one is nonfiction.'' That includes selections with
+  both types \emph{and} selections with four nonfiction books.
+  Part (b) excludes the all-nonfiction selections, so it is
+  not the complement of part (a).
+\end{enumerate}
+
+Problem 10. Probability.
+
+\textbf{Problem}: A multiple-choice quiz contains 15 questions. Each question has 5 possible answers, exactly one of which is correct.
+
+A student answers every question independently by choosing one of the five answers uniformly at random.
+
+\begin{enumerate}[label=(\alph*)]
+  \item What is the probability that the student answers all questions incorrectly?
+  \item What is the probability that the student answers exactly 6 questions correctly?
+  \item What is the probability that the student answers at least 6 questions correctly?
+\end{enumerate}
+For part (c), write your answer both in summation notation and as an expanded sum.
+
+\textbf{Solution}:
+\begin{enumerate}[label=(\alph*)]
+  \item The probability of an incorrect answer on each question is
+  $\frac{4}{5}$. Since the 15 answers are independent, we write the probability as:
+  $$
+  P(\text{all incorrect})=\left(\frac{4}{5}\right)^{15}.
+  $$
+
+  \item Choose which 6 of the 15 questions are answered correctly.
+  The other 9 are answered incorrectly, so
+  $$
+  P(\text{exactly 6 correct})
+  =\binom{15}{6}
+   \left(\frac{1}{5}\right)^6
+   \left(\frac{4}{5}\right)^9.
+  $$
+
+  \item Add the probabilities of getting exactly 6, 7, \ldots, 15
+  questions correct. In summation notation, this is
+  $$
+  P(\text{at least 6 correct})
+  =\sum_{k=6}^{15}\binom{15}{k}
+   \left(\frac{1}{5}\right)^k
+   \left(\frac{4}{5}\right)^{15-k}.
+  $$
+  As an expanded sum, it is
+  $$
+  \begin{aligned}
+  P(\text{at least 6 correct})
+  =\frac{1}{5^{15}}\bigl(
+    &\binom{15}{6}4^9
+    +\binom{15}{7}4^8
+    +\binom{15}{8}4^7
+    +\binom{15}{9}4^6
+    +\binom{15}{10}4^5\\
+    &+\binom{15}{11}4^4
+    +\binom{15}{12}4^3
+    +\binom{15}{13}4^2
+    +\binom{15}{14}4
+    +\binom{15}{15}
+  \bigr).
+  \end{aligned}
+  $$
+\end{enumerate}
+\end{document}

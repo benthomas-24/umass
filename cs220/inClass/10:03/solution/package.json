@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "part1": "npm run build && node out/01_zip_naive.js",
+    "part2": "npm run build && node out/02_how_range_based_loops_work.js",
+    "part3": "npm run build && node out/03_custom_iterator.js",
+    "part4": "npm run build && node out/04_zip_improvements.js",
+    "part5": "npm run build && node out/05_countdown_generator.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "name": "lec12"
+}
