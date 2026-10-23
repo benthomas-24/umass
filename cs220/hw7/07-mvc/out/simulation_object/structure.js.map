@@ -1,0 +1,1 @@
+{"version":3,"file":"structure.js","sourceRoot":"","sources":["../../src/simulation_object/structure.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,gBAAgB,EAAE,MAAM,wBAAwB,CAAC;AAE1D,MAAM,UAAU,gBAAgB,CAAC,IAAY,EAAE,EAAU,EAAE,QAAoB;IAC7E,MAAM,IAAI,KAAK,CAAC,qBAAqB,CAAC,CAAC;AACzC,CAAC;AAED,MAAM,OAAgB,SAAU,SAAQ,gBAAgB;CAAG"}

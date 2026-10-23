@@ -1,0 +1,1 @@
+{"version":3,"file":"sprite.js","sourceRoot":"","sources":["../src/sprite.ts"],"names":[],"mappings":"AAAA,4CAA4C;AAC5C,qCAAqC;AACrC,sDAAsD;AACtD,wDAAwD;AACxD,qDAAqD;AACrD,0BAA0B;AAC1B,MAAM,OAAO,MAAM;IAMC;IACA;IANlB;IACE,sDAAsD;IACtD,+CAA+C;IAC/C,iDAAiD;IACjD,iBAAiB;IACD,OAAe,EACf,QAAgB,CAAC;QADjB,YAAO,GAAP,OAAO,CAAQ;QACf,UAAK,GAAL,KAAK,CAAY;IAChC,CAAC;CACL"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"agent.js","sourceRoot":"","sources":["../../src/simulation_object/agent.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,gBAAgB,EAAE,MAAM,wBAAwB,CAAC;AAE1D,MAAM,UAAU,YAAY,CAAC,IAAY,EAAE,EAAU,EAAE,eAA2B;IAChF,MAAM,IAAI,KAAK,CAAC,qBAAqB,CAAC,CAAC;AACzC,CAAC;AAED,MAAM,OAAgB,KAAM,SAAQ,gBAAgB;CAGnD"}
