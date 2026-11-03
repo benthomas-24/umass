@@ -1,11 +1,17 @@
-import type { Agent } from "./simulation_object/agent.js";
+import { Agent } from "./simulation_object/agent.js";
 import type { Structure } from "./simulation_object/structure.js";
-import type { View } from "./view.js";
+import { View } from "./view.js";
 
 export class Model {
-  // Implement this method according to the singleton pattern seen in class
+  private agents = new Map<string, Agent>();
+  private structures = new Map<string, Structure>();
+  private static instance: Model;
+  private constructor() {}
   static getInstance(): Model {
-    throw new Error("Not implemented yet");
+    if (this.instance == null) {
+      Model.instance = new Model();
+    }
+    return Model.instance;
   }
 
   // Call next tick on every simulation object
@@ -15,12 +21,17 @@ export class Model {
   // its initial state.
   // If an agent with the same ID already exists, throws an Error with
   // the message `Agent "${agent.id}" already exists`
-  addAgent(agent: Agent) {}
+  addAgent(agent: Agent) {
+    this.agents.set(agent.id, agent);
+  }
 
   // Return the agent with the specified id.
   // If no agent with that id exists, throws an Error with the message
   // `Agent "${id}" not found`
   getAgent(id: string): Agent {
+    if (this.agents.has(id)) {
+      return this.agents.get(id)!;
+    }
     throw new Error("Not implemented yet");
   }
 

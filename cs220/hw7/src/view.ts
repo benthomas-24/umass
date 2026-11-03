@@ -18,7 +18,7 @@ export class MainSimulationView {
   // The draw method is provided for you.
   // It draws each drawable object on the canvas.
   // DO NOT MODIFY.
-  override draw() {
+  draw() {
     for (const drawable of this.drawableObjects.values()) {
       this.canvas.getContext("2d")?.drawImage(
         drawable.getSpriteImage(),
