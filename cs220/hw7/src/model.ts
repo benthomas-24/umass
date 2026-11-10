@@ -5,6 +5,7 @@ import { View } from "./view.js";
 export class Model {
   private agents = new Map<string, Agent>();
   private structures = new Map<string, Structure>();
+  private views: View[] = [];
   private static instance: Model;
   private constructor() {}
   static getInstance(): Model {
@@ -32,39 +33,65 @@ export class Model {
     if (this.agents.has(id)) {
       return this.agents.get(id)!;
     }
-    throw new Error("Not implemented yet");
+    throw Error(`ID ${id} was not found`);
   }
 
   // Remove the agent with the specified id from the simulation.
   // If no agent with that id exists, throws an Error with the message
   // `Couldn't remove agent "${id}": Not found`
   removeAgent(id: string) {
-    throw new Error("Not implemented yet");
+    if (this.agents.has(id)) {
+      this.agents.delete(id);
+      return;
+    }
+    throw Error(`ID ${id} was not found`);
   }
 
   // Add the given structure to the simulation and ask it to broadcast
   // its initial state.
   // If a structure with the same ID already exists, throws
   // an Error with the message `Structure "${structure.id}" already exists`
-  addStructure(structure: Structure) {}
+  addStructure(structure: Structure) {
+    this.structures.set(structure.id, structure);
+  }
 
   // Return the structure with the specified id.
   // If no structure with that id exists, throws an Error with the message
   // `Structure ${id} not found`
   getStructure(id: string): Structure {
-    throw new Error("Not implemented yet");
+    if (this.structures.has(id)) {
+      return this.structures.get(id)!;
+    }
+    throw Error(`Structure ${id} not found`);
   }
 
   // Remove the structure with the specified id from the simulation.
   // If no agent with that id exists, throws an Error with the message
   // `Couldn't remove structure "${id}": Not found`
   removeStructure(id: string) {
-    throw new Error("Not implemented yet");
+    if (this.structures.has(id)) {
+      this.structures.delete(id);
+      return;
+    }
+    throw Error(`Structure ${id} not found`);
   }
 
-  // Subscribe the given view to recieve updates from the model
-  attach(view: View) {}
+  // Subscribe the given view to receive updates from the model.
+  attach(view: View): void {
+    if (!this.views.includes(view)) {
+      this.views.push(view);
+      return;
+    }
+    console.log(`${view} has already been subscribed`);
+  }
 
-  // Unsubscribe the given view to recieve updates from the model
-  detach(view: View) {}
+  // Unsubscribe the given view from model updates.
+  detach(view: View): void {
+    const index = this.views.indexOf(view);
+    if (index !== -1) {
+      this.views.splice(index, 1);
+      return;
+    }
+    console.log(`${view} is already unsubscribed`);
+  }
 }
