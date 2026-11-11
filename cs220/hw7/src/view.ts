@@ -5,15 +5,21 @@ import type { Sprite } from "./sprite.js";
 export abstract class View {
   // Do not alter or remove this declaration.
   abstract draw(): void;
+
+  updateSprite(): void{
+    
+  }
 }
 
-export class MainSimulationView {
+export class MainSimulationView extends View {
   // Map of object id to drawable object
   // Keep this map up to date when this view recieves updates
   // from the model.
   private drawableObjects = new Map<string, DrawableSimulationObject>();
 
-  constructor(private canvas: HTMLCanvasElement) {}
+  constructor(private canvas: HTMLCanvasElement) {
+    super();
+  }
 
   // The draw method is provided for you.
   // It draws each drawable object on the canvas.

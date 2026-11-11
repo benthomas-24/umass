@@ -11,39 +11,57 @@ export function agentFactory(type: string, id: string, initialLocation: Coordina
 
 export abstract class Agent extends SimulationObject {
   private currLocation: Coordinate;
-  private newLocation = { reachedDestination: false, newLocation: new Coordinate(0, 0) };
   private destination?: Coordinate;
   private speed?: number;
-  constructor(id: string, private initial_location: Coordinate) {
+
+  constructor(id: string, initialLocation: Coordinate) {
     super(id);
-    this.initial_location = initial_location;
-    this.currLocation = this.initial_location;
+    this.currLocation = initialLocation;
   }
+
   override nextTick(): void {
-    if (this.destination === undefined || this.speed === undefined) return;
-    this.newLocation = linearInterpolate(this.currLocation, this.destination, this.speed);
-    this.currLocation = this.newLocation.newLocation;
+    if (this.destination === undefined || this.speed === undefined) {
+      return;
+    }
+
+    const result = linearInterpolate(this.currLocation, this.destination, this.speed);
+    this.currLocation = result.newLocation;
+
+    if (result.reachedDestination) {
+      this.onReachDestination();
+    }
   }
-  /**
-   * Sets this agent's velocity to move towards the
-   * specified destination at the given speed.
-   */
+
+  protected abstract onReachDestination(): void;
+
   startMoving(destination: Coordinate, speed: number): void {
     this.destination = destination;
     this.speed = speed;
   }
+
   override getLocation(): Coordinate {
     return this.currLocation;
   }
 }
 
 class SimpleLobster extends Agent {
-  imageID = "lobsterRegular";
-  scale = 0.4;
-  sprite = new Sprite(this.imageID, this.scale);
+  imageID: string = "lobsterRegular";
+  scale: number = 0.4;
+  sprite = this.createSprite();
+  protected override onReachDestination(): void {
+    console.log("Simple lobster arrived.");
+  }
 }
 
 class SleepyLobster extends Agent {
   imageID = "lobsterRegular";
   scale = 0.4;
+  private asleep = false;
+  sprite = this.createSprite();
+
+  protected override onReachDestination(): void {
+    this.asleep = true;
+    this.imageID = "lobsterSleeping";
+    this.scale = 0.25;
+  }
 }

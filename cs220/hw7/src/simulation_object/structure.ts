@@ -1,5 +1,6 @@
 import type { Coordinate } from "../geometry.js";
 import { SimulationObject } from "./simulation_object.js";
+import { Sprite } from "../sprite.js";
 
 export function structureFactory(type: string, id: string, location: Coordinate): Structure {
   if (type != "house") throw new Error("unsupported structure type: " + type);
@@ -17,6 +18,7 @@ class House extends Structure {
   override getLocation(): Coordinate {
     return this.location;
   }
-  image_id = "simpleHouse";
+  imageID = "simpleHouse";
   scale = 1.0;
+  sprite = this.createSprite();
 }
